@@ -52,7 +52,7 @@ const Home=()=>{
       >
         <h2 className="text-center mb-4">Login</h2>
         <Form>
-          <Form.Group className="mb-3" controlId="formUsername">
+          <Form.Group className="mb-3" controlId="formUsername" >
             <Form.Label className="fw-bold">Email</Form.Label>
             <InputGroup>
               <InputGroup.Text className="bg-light">

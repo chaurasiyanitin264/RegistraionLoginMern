@@ -3,6 +3,7 @@ import Form from 'react-bootstrap/Form';
 import { useState } from 'react';
 import axios from 'axios';
 import { Card, InputGroup } from 'react-bootstrap';
+import {message} from "antd";
 
 const ResetPassword = () => {
   const [input, setInput] = useState({});
@@ -17,7 +18,9 @@ const ResetPassword = () => {
     e.preventDefault();
     let api = "http://localhost:8000/user/registration";
     axios.post(api, input).then((res) => {
-      alert("You are succesfully registered!!!");
+        message.success("password successfully updated");
+        
+
     })
 
   }
@@ -48,7 +51,7 @@ const ResetPassword = () => {
                 <Form.Control
                   placeholder="Type your Email"
                   className="form-control"
-                  type="password" name="password" value={input.password} onChange={handleInput} />
+                  type="password" name="cpassword" value={input.cpassword} onChange={handleInput} />
               </InputGroup>
             </Form.Group>
 
