@@ -1,26 +1,22 @@
-const express = require("express");
-const app = express();
-const cors = require("cors");
-const bodyParser = require("body-parser");
-const mongoose = require("mongoose");
-const UserRoutes = require("./routes/userRoutes");
+const express= require("express");
+const app= express();
+const cors= require("cors");
+const mongoose=require("mongoose");
+const bodyparser = require('body-parser');
+const UserRoute= require("./routes/userRoute");
 
+mongoose.connect("mongodb://127.0.0.1:27017/6pmloginsystem").then(()=>{
+    console.log("DB connected!");
+})
 
 app.use(cors());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyparser.urlencoded({ extended: true }))
+app.use(bodyparser.json())
 
 
-app.use("/user", UserRoutes);
+app.use("/user", UserRoute);
 
 
-  mongoose.connect("mongodb://127.0.0.1:27017/Email")
-  .then(() => {
-    console.log("DB Connected");
-  })
- 
-
-
-app.listen(9000, () => {
-  console.log("Server running on port 8000");
-});
+app.listen(8000, ()=>{
+    console.log("Server run on 8000 port!");
+})
