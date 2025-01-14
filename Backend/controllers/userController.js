@@ -11,6 +11,7 @@ const userRegistration=async(req, res)=>{
          name:name,
          city:city,
          email:email,
+         //u
          password:passwordHash
     })
     res.send("OK");
