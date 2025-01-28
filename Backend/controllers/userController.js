@@ -40,37 +40,30 @@ const userLogin=async(req, res)=>{
     } catch (error) {
          res.send("error in code")
     }
-
-
 }
-
-
 const changePassword=async(req, res)=>{
-    const {userid, oldpassword, newpassword} = req.body;
-
+    const {userid,  cpassword, password} = req.body;
     try {
          const Data=await UserModel.findById(userid);
-         console.log(Data);
-         const chkpass= await bcrypt.compare(oldpassword, Data.password);
+        //  console.log(Data);
+         const chkpass= await bcrypt.compare(cpassword, Data.password);
+        //  console.log(chkpass)
          if (chkpass)
          {
              const salt = await bcrypt.genSalt();
-             const passwordHash = await bcrypt.hash(newpassword, salt);
+             const passwordHash = await bcrypt.hash(password, salt);
              await UserModel.findByIdAndUpdate(userid, {password:passwordHash});
              res.status(200).send({msg:"password updated!!!"});
          }
          else 
          {
            res.status(400).send({msg:"old password dose not match!"})
-         }
-
-
-         
+         }   
     } catch (error) {
          console.log(error);
     }
-}
 
+}
 module.exports={
     userRegistration,
     userLogin,

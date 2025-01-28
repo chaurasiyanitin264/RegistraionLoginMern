@@ -1,12 +1,19 @@
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import axios from 'axios';
 import { Card, InputGroup } from 'react-bootstrap';
 import {message} from "antd";
-
+import {useNavigate} from "react-router-dom";
 const ResetPassword = () => {
   const [input, setInput] = useState({});
+  const [userid, setUserId] = useState("");
+  const navigate=useNavigate();
+  useEffect(()=>{
+    setUserId(localStorage.getItem("userid"));
+
+  },[])
+
   const handleInput = (e) => {
     let name = e.target.name;
     let value = e.target.value;
@@ -14,14 +21,23 @@ const ResetPassword = () => {
     console.log(input);
   }
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    let api = "http://localhost:8000/user/registration";
-    axios.post(api, input).then((res) => {
-        message.success("password successfully updated");
-        
+  const handleSubmit = async() => {
 
-    })
+    try {
+      let api = "http://localhost:8000/user/passwordchange";
+     const response=await axios.post(api, {userid:userid,...input});
+       if(response.status==200)
+       {
+        message.success(response.data.msg);
+        navigate("/home")
+       }
+         
+    } catch (error) {
+      message.error(error.response.data.msg)
+    }
+   
+      
+
 
   }
   return (
@@ -49,7 +65,6 @@ const ResetPassword = () => {
                   <i className="bi bi-person"></i>
                 </InputGroup.Text>
                 <Form.Control
-                  placeholder="Type your Email"
                   className="form-control"
                   type="password" name="cpassword" value={input.cpassword} onChange={handleInput} />
               </InputGroup>
@@ -73,7 +88,7 @@ const ResetPassword = () => {
             <Button
               variant="primary"
               className="w-100"
-              type="submit" onClick={handleSubmit}
+              type="button" onClick={handleSubmit}
               style={{
                 background: "linear-gradient(to right, #8e44ad, #3498db)",
                 border: "none",

@@ -13,7 +13,7 @@ const Home=()=>{
 
   const navigate = useNavigate();
   const handleSubmit=async(e)=>{
-    e.preventDefault();
+   
     try {
       let api="http://localhost:8000/user/userlogin";
       const response= await axios.post(api, {email:email, password:password})
@@ -91,7 +91,7 @@ const Home=()=>{
           <Button
             variant="primary"
             className="w-100"
-            type="submit"  onClick={handleSubmit}
+            type="button"  onClick={handleSubmit}
             style={{
               background: "linear-gradient(to right, #8e44ad, #3498db)",
               border: "none",
